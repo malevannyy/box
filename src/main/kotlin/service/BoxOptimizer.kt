@@ -44,7 +44,7 @@ class BoxOptimizer(
 
         do {
             // 2) Вычисление значений целевой функции Fj для всех N вершин Комплекса:
-            val fComplex = complex.points.map { function(it) }
+            val fComplex = complex.map { function(it) }
 
             // 3) Выбор наилучшего
             val g = fComplex.indexOfMin()
@@ -142,7 +142,7 @@ class BoxOptimizer(
     inner class Complex(
         points: List<Point>
     ) {
-        val points = points.toMutableList()
+        private val points = points.toMutableList()
         private val fits: MutableList<Boolean> = points.map { it.fits() }.toMutableList()
 
         init {
@@ -154,6 +154,8 @@ class BoxOptimizer(
         operator fun set(i: Int, point: Point) {
             points[i] = point
         }
+
+        fun <T> map(f: (p: Point) -> T) = points.map(f)
 
         fun anyFit() = fits.any { it }
         fun allFit() = fits.all { it }
