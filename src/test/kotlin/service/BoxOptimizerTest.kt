@@ -18,7 +18,8 @@ class BoxOptimizerTest {
                 FunctionalLimit(100.0) { x -> x[0] + x[1] },
                 FunctionalLimit(50.0) { x -> x[0] },
                 FunctionalLimit(50.0) { x -> x[1] },
-            )
+            ),
+            epsilon = 0.001
         )
         val actual = optimizer.solve()
 

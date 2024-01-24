@@ -11,7 +11,7 @@ open class UnaryLimit(
     override fun fit(x: Double) = x in low..high
 }
 
-object Unlimited : UnaryLimit(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY) {
+object Unlimited : UnaryLimit(Double.MIN_VALUE, Double.MAX_VALUE) {
     override fun fit(x: Double) = true
 }
 
