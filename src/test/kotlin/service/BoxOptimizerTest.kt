@@ -23,6 +23,8 @@ class BoxOptimizerTest {
         )
         val actual = optimizer.solve()
 
+        println("result: ${actual.contentToString()}")
+
         // verify near (0.0, 0.0)
         assertEquals(0.0, actual[0], 0.1)
         assertEquals(0.0, actual[1], 0.1)
