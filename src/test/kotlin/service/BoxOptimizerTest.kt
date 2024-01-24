@@ -8,9 +8,18 @@ class BoxOptimizerTest {
     @Test
     fun paraboloidalTest() {
         val optimizer = BoxOptimizer(
+            n = 2,
             function = { x -> x[0] * x[0] + x[1] * x[1] },
-            explicits = listOf(),
-            implicits = listOf()
+            explicits = listOf(
+                UnaryLimit(-10.0, +10.0),
+                // no bounds for x1
+                Unlimited,
+            ),
+            implicits = listOf(
+                FunctionalLimit(100.0) { x -> x[0] + x[1] },
+                FunctionalLimit(50.0) { x -> x[0] },
+                FunctionalLimit(50.0) { x -> x[1] },
+            )
         )
         val actual = optimizer.solve()
 
