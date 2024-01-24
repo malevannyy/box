@@ -12,8 +12,7 @@ class BoxOptimizerTest {
             function = { x -> x[0] * x[0] + x[1] * x[1] },
             explicits = listOf(
                 UnaryLimit(-10.0, +10.0),
-                // no bounds for x1
-                Unlimited,
+                UnaryLimit(-10.0, +10.0),
             ),
             implicits = listOf(
                 FunctionalLimit(100.0) { x -> x[0] + x[1] },

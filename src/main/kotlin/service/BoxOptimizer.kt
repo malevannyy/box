@@ -2,12 +2,12 @@ package service
 
 import util.random
 
-typealias Fun<T> = (x: List<T>) -> T
-typealias Point = List<Double>
+typealias Fun = (x: DoubleArray) -> Double
+typealias Point = DoubleArray
 
 class BoxOptimizer(
     private val n: Int,
-    private val function: Fun<Double>,
+    private val function: Fun,
     // ограничения на ВСЕ переменные, для независимых использовать object : Unbounded
     private val explicits: List<UnaryLimit>,
     // функциональные ограничения
@@ -16,6 +16,7 @@ class BoxOptimizer(
 
 
     // N - complex size
+    @Suppress("MagicNumber")
     private val complexSize = when {
         n <= 5 -> 2 * n
         else -> n + 1
@@ -31,10 +32,7 @@ class BoxOptimizer(
         // build init complex
         val complex = buildInitComplex()
 
-
-
-
-        return listOf(0.0, 0.0)
+        return doubleArrayOf(0.0, 0.0)
     }
 
     // Координаты вершин исходного комплекса Xij
@@ -45,10 +43,10 @@ class BoxOptimizer(
             val points = (0 until complexSize).map {
                 (0 until n).map { i ->
                     explicits[i].low + random() * (explicits[i].high - explicits[i].low)
-                }
+                }.toDoubleArray()
             }
             complex = Complex(points)
-        } while (complex.anyFit())
+        } while (!complex.anyFit())
 
         complex.improve()
 
@@ -102,7 +100,7 @@ class BoxOptimizer(
                     }
                 }
             }
-            return array.map { it / p }.toMutableList()
+            return array.map { it / p }.toDoubleArray()
         }
 
         // операция смещения к центру Р вершин Комплекса,
@@ -111,7 +109,7 @@ class BoxOptimizer(
             val center = center()
             return point.mapIndexed { i, x ->
                 (x + center[i]) / 2
-            }
+            }.toDoubleArray()
         }
     }
 }

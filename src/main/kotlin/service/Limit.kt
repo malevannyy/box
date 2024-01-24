@@ -17,7 +17,7 @@ object Unlimited : UnaryLimit(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY
 
 class FunctionalLimit(
     private val b: Double,
-    val f: Fun<Double>
-) : Limit<List<Double>> {
-    override fun fit(x: List<Double>) = f(x) <= b
+    val f: Fun
+) : Limit<DoubleArray> {
+    override fun fit(x: DoubleArray) = f(x) <= b
 }
