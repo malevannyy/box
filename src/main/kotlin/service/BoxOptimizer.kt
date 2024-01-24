@@ -38,11 +38,14 @@ class BoxOptimizer(
     }
 
     override fun solve(): Point {
+        var counter = 0
 
         // 1) Формирование исходного Комплекса
         val complex = buildInitComplex()
 
         do {
+            counter+=1; println("($counter) $complex")
+
             // 2) Вычисление значений целевой функции Fj для всех N вершин Комплекса:
             val fComplex = complex.map { function(it) }
 
@@ -200,6 +203,10 @@ class BoxOptimizer(
             return point.mapIndexed { i, x ->
                 (x + center[i]) / 2
             }.toDoubleArray()
+        }
+
+        override fun toString(): String {
+            return points.joinToString(separator = " | ") { it.contentToString() }
         }
     }
 }
